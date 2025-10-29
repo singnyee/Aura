@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart'; 
 import 'screens/report_screen.dart';
-import 'input/input_page_container.dart'; // 🌟 설문 입력 화면 import 추가
+import 'input/input_page_container.dart'; // 설문 입력 화면 import
 
-// 🎨 사용자 정의 색상 정의
+// 사용자 정의 색상 정의
 const Color primaryPink = Color(0xFFF79FBF);
 const Color lightPink = Color(0xFFF9C3D6);
 const Color lavender = Color(0xFFF6EAFB);
@@ -23,13 +23,13 @@ class MyApp extends StatelessWidget {
       
       theme: ThemeData(
         primaryColor: primaryPink,
-        // fontFamily: 'Pretendard', // 폰트 설정
+        // fontFamily: 'Pretendard', // 폰트 설정 (필요시 주석 해제)
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
       
-      // 🏡 현재 작업 중인 설문 화면을 시작 화면으로 설정합니다.
-      home: const InputPageContainer(), // ⬅️ InputPageContainer로 변경됨
+      // 앱 시작 화면을 HomeScreen으로 변경
+      home: const HomeScreen(), // 여기를 변경했습니다!
     );
   }
 }
