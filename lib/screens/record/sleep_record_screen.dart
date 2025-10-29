@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/aura_colors.dart'; // 공통 색상 파일
+import 'diet_record_screen.dart';
 
 // HTML의 커스텀 그라데이션 정의
 const LinearGradient pinkGradient = LinearGradient(
@@ -128,10 +129,10 @@ class SleepRecordScreenState extends State<SleepRecordScreen> {
           // 🌟 수정: _selectTime -> selectTime
           onTap: () => selectTime(context, false),
         ),
-        const SizedBox(height: 24), // space-y-6
+        const SizedBox(height: 120), // space-y-6
         // 🌟 수정: _buildConditionCard -> buildConditionCard
         buildConditionCard(), // Question 3: 컨디션
-        const SizedBox(height: 24),
+        
       ],
     );
   }
@@ -422,13 +423,17 @@ class SleepRecordScreenState extends State<SleepRecordScreen> {
           ),
           child: ElevatedButton(
             onPressed: () {
-              // 다음 페이지 (식습관 기록)로 이동하는 로직
-              // 예: Navigator.push(context, MaterialPageRoute(builder: (context) => DietRecordScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DietRecordScreen(),
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
-              padding: const EdgeInsets.symmetric(vertical: 16), // py-4
+              padding: const EdgeInsets.symmetric(vertical: 16), 
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -436,9 +441,9 @@ class SleepRecordScreenState extends State<SleepRecordScreen> {
             child: const Text(
               '다음으로 →',
               style: TextStyle(
-                color: Colors.white, // HTML엔 text-white가 없지만, 그라데이션엔 흰색이 어울림
-                fontWeight: FontWeight.w600, // font-semibold
-                fontSize: 18, // text-lg
+                color: Colors.white, 
+                fontWeight: FontWeight.w600, 
+                fontSize: 18, 
               ),
             ),
           ),
