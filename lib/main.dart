@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart'; 
-import 'screens/report_screen.dart';
-import 'input/input_page_container.dart'; // 설문 입력 화면 import
 
-// 사용자 정의 색상 정의
-const Color primaryPink = Color(0xFFF79FBF);
-const Color lightPink = Color(0xFFF9C3D6);
-const Color lavender = Color(0xFFF6EAFB);
-const Color pinkEnd = Color(0xFFFDE7EE);
+// 1. 우리가 만든 홈 스크린 파일을 import 합니다.
+import 'screens/home/home_screen.dart'; 
+
+// 2. 테마 설정을 위해 색상 파일을 import 합니다.
+import 'utils/aura_colors.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -19,17 +16,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Emotion Forecast App',
+      // 3. 앱 제목
+      title: '아우라 (Aura)',
       
+      // 4. 디버그 리본 배너 제거
+      debugShowCheckedModeBanner: false,
+      
+      // 5. 앱의 전반적인 테마 설정
       theme: ThemeData(
-        primaryColor: primaryPink,
-        // fontFamily: 'Pretendard', // 폰트 설정 (필요시 주석 해제)
+        // HTML의 <head>에서 사용한 'Pretendard' 폰트를 기본 폰트로 지정
+        // (참고: 이 폰트를 사용하려면 pubspec.yaml에 폰트 파일 추가가 필요합니다)
+        fontFamily: 'Pretendard',
+        
+        // 앱의 기본 배경색 (HTML의 <body> 배경)
         scaffoldBackgroundColor: Colors.white,
+        
+        // 앱의 메인 색상 (버튼 등에 사용)
+        primaryColor: AuraColors.primaryPink,
+        
         useMaterial3: true,
       ),
       
-      // 앱 시작 화면을 HomeScreen으로 변경
-      home: const HomeScreen(), // 여기를 변경했습니다!
+      // 6. 앱이 시작될 때 보여줄 첫 화면
+      home: const HomeScreen(),
     );
   }
 }
