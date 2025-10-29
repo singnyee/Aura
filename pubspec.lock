@@ -219,5 +219,3 @@ packages:
 sdks:
   dart: ">=3.9.2 <4.0.0"
   flutter: ">=3.27.0"
-# 🌟 GitHub Pages를 위한 설정 추가 🌟
-  uses-material-design: true

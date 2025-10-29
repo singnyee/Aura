@@ -24,7 +24,7 @@ class ReportScreen extends StatelessWidget {
             colors: [Color(0xFFFDF2F8), Color(0xFFFAF5FF)], // 대략적인 pink-50 to purple-50
           ),
         ),
-        child: const SafeArea(
+        child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.only(bottom: 24.0),
