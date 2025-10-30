@@ -326,7 +326,8 @@ class ExerciseRecordScreenState extends State<ExerciseRecordScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            gradient: isSelected ? pinkGradient : null,
+            // 🌟 [수정] pinkGradient -> softGradient
+            gradient: isSelected ? softGradient : null,
             color: isSelected ? null : AuraColors.gray100,
             borderRadius: BorderRadius.circular(12),
           ),
@@ -357,7 +358,8 @@ class ExerciseRecordScreenState extends State<ExerciseRecordScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            gradient: isSelected ? pinkGradient : null,
+            // 🌟 [수정] pinkGradient -> softGradient
+            gradient: isSelected ? softGradient : null,
             color: isSelected ? null : AuraColors.gray100,
             borderRadius: BorderRadius.circular(12),
           ),

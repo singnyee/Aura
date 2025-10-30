@@ -310,7 +310,8 @@ class SleepRecordScreenState extends State<SleepRecordScreen> {
                 width: 32,
                 height: 32,
                 decoration: const BoxDecoration(
-                  gradient: pinkGradient,
+                  // 🌟 [수정] pinkGradient -> softGradient
+                  gradient: softGradient,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(FontAwesomeIcons.heart,
@@ -354,7 +355,8 @@ class SleepRecordScreenState extends State<SleepRecordScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          gradient: isSelected ? pinkGradient : null,
+          // 🌟 [수정] pinkGradient -> softGradient
+          gradient: isSelected ? softGradient : null,
           color: isSelected ? null : AuraColors.gray200,
           borderRadius: BorderRadius.circular(12),
         ),

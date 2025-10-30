@@ -179,11 +179,11 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     Widget child,
   ) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      // 🌟 [수정 1] 세로 패딩을 24에서 12로 줄임
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        // 🌟 [수정] 테두리 두께 (width) 2.0으로 증가
         border: Border.all(color: AuraColors.gray200, width: 3.0),
         boxShadow: [
           BoxShadow(
@@ -211,7 +211,8 @@ class DietRecordScreenState extends State<DietRecordScreen> {
               color: AuraColors.gray600,
             ),
           ),
-          const SizedBox(height: 16),
+          // 🌟 [수정 2] 내부 간격을 16에서 12로 줄임
+          const SizedBox(height: 12),
           child,
         ],
       ),

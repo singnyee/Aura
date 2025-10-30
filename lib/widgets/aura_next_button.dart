@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/aura_colors.dart'; // 공통 색상 파일
+import '../../utils/aura_colors.dart'; // 공통 색상 파일
 
 class AuraNextButton extends StatelessWidget {
   // 버튼을 눌렀을 때 실행될 함수를 외부에서 받아옵니다.
@@ -18,20 +18,19 @@ class AuraNextButton extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0,
       child: Padding(
-        // 🌟 [수정]
-        // 기존: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0)
-        // 버튼 자체의 패딩(vertical: 24)과 중복되어 높이 오버플로우를 일으키므로
         // 여기서는 좌우 패딩만 남기고 세로 패딩은 제거합니다.
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Container(
           decoration: BoxDecoration(
-            gradient: pinkGradient, // 공통 그라데이션 사용
+            // 🌟 [수정 1] 그라데이션 대신 진한 홈화면 단색으로 변경
+            color: AuraColors.primaryPink,
             borderRadius: BorderRadius.circular(16),
+            // 🌟 [수정 2] 그림자를 더 뚜렷하고 표준적인 스타일로 변경
             boxShadow: [
               BoxShadow(
-                color: AuraColors.primaryPink.withOpacity(0.3),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
+                color: Colors.black.withOpacity(0.15), // 더 선명한 검은색 그림자
+                blurRadius: 8,
+                offset: const Offset(0, 2),
               ),
             ],
           ),
