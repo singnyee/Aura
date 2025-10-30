@@ -131,7 +131,7 @@ class HomeContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '유진님, 오늘의 감정 예보를\n알려드릴게요 ☀️',
+            '송이님, 오늘의 감정 예보를\n알려드릴게요 ☀️',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
@@ -333,21 +333,26 @@ class HomeContent extends StatelessWidget {
     );
   }
   Widget buildGrayButton() { 
-     return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AuraColors.gray100,
-        foregroundColor: AuraColors.gray600,
-        elevation: 0,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    // 🌟 [수정] 핑크 버튼과 동일한 구조로 변경
+    return Container(
+      decoration: BoxDecoration(
+        color: AuraColors.gray100, // 🌟 배경색을 Container가 담당
+        borderRadius: BorderRadius.circular(8), // 🌟 모양도 Container가 담당
       ),
-      child: const Text(
-        '완료됨',
-        style: TextStyle(fontSize: 14),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent, // 🌟 버튼 자체는 투명하게
+          shadowColor: Colors.transparent, // 🌟 버튼 자체는 투명하게
+          foregroundColor: AuraColors.gray600, // 텍스트 색상은 유지
+          elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 8), 
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 핑크 버튼과 동일한 설정
+        ),
+        child: const Text(
+          '완료됨',
+          style: TextStyle(fontSize: 14),
+        ),
       ),
     );
   }
@@ -403,7 +408,7 @@ class HomeContent extends StatelessWidget {
             elevation: 0,
           ),
           child: const Text(
-            '오늘 기록하기 (60% 완료)',
+            '오늘 기록하기',
             style: TextStyle(
               fontWeight: FontWeight.w500,
             ),
@@ -530,7 +535,7 @@ class HomeContent extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
