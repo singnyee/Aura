@@ -27,8 +27,7 @@ class ExerciseRecordScreenState extends State<ExerciseRecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 🌟 [수정] EmotionScreen과 동일하게 변경
-      backgroundColor: Colors.transparent,
+     
       body: Container(
         decoration: const BoxDecoration(
           gradient: pastelBodyGradient,
@@ -37,10 +36,10 @@ class ExerciseRecordScreenState extends State<ExerciseRecordScreen> {
       ),
       bottomNavigationBar: AuraNextButton(
         onPressed: () {
-          // '감정 기록' 화면으로 이동하는 로직을 추가합니다.
           Navigator.push(
             context,
             MaterialPageRoute(
+        
               builder: (context) => const EmotionRecordScreen(),
             ),
           );

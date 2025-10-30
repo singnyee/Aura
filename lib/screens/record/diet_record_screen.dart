@@ -25,8 +25,8 @@ class DietRecordScreenState extends State<DietRecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
+      
+        body: Container(
         decoration: const BoxDecoration(
           gradient: pastelBodyGradient,
         ),

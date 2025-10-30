@@ -64,6 +64,9 @@ class SleepRecordScreenState extends State<SleepRecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // 🌟 [수정] 이 속성을 추가하면 body가 하단 버튼 영역 뒤까지 확장됩니다.
+      extendBody: true,
+      
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: const BoxDecoration(
