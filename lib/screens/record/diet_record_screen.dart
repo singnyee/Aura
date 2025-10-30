@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../utils/aura_colors.dart'; // 공통 색상 파일
+import '../../utils/aura_colors.dart'; 
+// 🌟 1. [추가] 새로 만든 공통 버튼을 import 합니다.
+import '../../widgets/aura_next_button.dart';
+import 'exercise_record_screen.dart'; 
 
-// SleepRecordScreen에서 사용한 그라데이션을 동일하게 가져옵니다.
-const LinearGradient pinkGradient = LinearGradient(
-  colors: [Color(0xFFFDE6E9), Color(0xFFFBD6E0)],
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-);
-
-const LinearGradient lavenderGradient = LinearGradient(
-  colors: [Color(0xFFE8E0F7), Color(0xFFDDD0F0)],
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-);
+// 🌟 2. [삭제] 
+// 아래에 있던 const LinearGradient pinkGradient...
+// const LinearGradient lavenderGradient... 2줄이 삭제되었습니다.
+// (공통 파일인 aura_colors.dart 로 이동했기 때문입니다)
 
 class DietRecordScreen extends StatefulWidget {
   const DietRecordScreen({super.key});
@@ -22,7 +17,6 @@ class DietRecordScreen extends StatefulWidget {
 }
 
 class DietRecordScreenState extends State<DietRecordScreen> {
-  // 6가지 항목의 선택 상태를 관리합니다. (0: 안 먹음, 1: 보통, 2: 많이)
   Map<String, int> dietSelections = {
     'salty': 0,
     'caffeine': 0,
@@ -32,26 +26,47 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     'fruit': 0,
   };
 
+  // 🌟 3. [수정] 
+  // build 메서드만 수정되었습니다.
+  // buildFooter()를 호출하는 대신, AuraNextButton 위젯을
+  // bottomNavigationBar에 직접 넣어줍니다.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFBF9FF), // 동일한 배경색
+      backgroundColor: const Color(0xFFFBF9FF), 
       body: buildMainContent(),
-      bottomNavigationBar: buildFooter(),
+      // 🌟 3-1. [수정] bottomNavigationBar 속성을 수정합니다.
+      bottomNavigationBar: AuraNextButton(
+        // 🌟 2. [수정] '다음으로' 버튼을 눌렀을 때의 동작을 수정합니다.
+        onPressed: () {
+          // '운동 기록' 화면으로 이동하는 로직을 추가합니다.
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ExerciseRecordScreen(),
+            ),
+          );
+        },
+      ),
     );
   }
+
+  //
+  // (이 아래 buildMainContent, buildProgressBar, buildHeaderTitle, 
+  //  buildDietCard, buildChoiceButton 메서드는
+  //  전혀 수정하지 않았습니다. 그대로 두시면 됩니다.)
+  //
 
   Widget buildMainContent() {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       children: [
-        const SizedBox(height: 48), // pt-12
-        buildProgressBar(), // 40%로 수정된 프로그레스 바
-        const SizedBox(height: 24), // mb-6
-        buildHeaderTitle(), // 새로운 제목
-        const SizedBox(height: 24), // space-y-6
+        const SizedBox(height: 48), 
+        buildProgressBar(), 
+        const SizedBox(height: 24), 
+        buildHeaderTitle(), 
+        const SizedBox(height: 24), 
 
-        // 6가지 식습관 카드
         buildDietCard(
           'salty',
           '짠 음식 🧂',
@@ -93,12 +108,11 @@ class DietRecordScreenState extends State<DietRecordScreen> {
           '과일 섭취량을 알려주세요.',
           lavenderGradient,
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 120), // 하단 여백
       ],
     );
   }
 
-  // 40% (Step 2 of 5)로 수정된 프로그레스 바
   Widget buildProgressBar() {
     return Column(
       children: [
@@ -106,7 +120,7 @@ class DietRecordScreenState extends State<DietRecordScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Step 2 of 5', // 🌟 수정
+              'Step 2 of 5', 
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -114,7 +128,7 @@ class DietRecordScreenState extends State<DietRecordScreen> {
               ),
             ),
             Text(
-              '40%', // 🌟 수정
+              '40%', 
               style: TextStyle(
                 fontSize: 14,
                 color: AuraColors.primaryPink.withOpacity(0.8),
@@ -122,20 +136,20 @@ class DietRecordScreenState extends State<DietRecordScreen> {
             ),
           ],
         ),
-        const SizedBox(height: 8), // mb-2
+        const SizedBox(height: 8), 
         Container(
-          height: 8, // h-2
+          height: 8, 
           decoration: BoxDecoration(
             color: AuraColors.gray200,
-            borderRadius: BorderRadius.circular(99), // rounded-full
+            borderRadius: BorderRadius.circular(99), 
           ),
           child: FractionallySizedBox(
-            widthFactor: 0.4, // 🌟 수정 (style="width: 40%")
+            widthFactor: 0.4, 
             alignment: Alignment.centerLeft,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(99),
-                gradient: pinkGradient, // gradient-pink
+                gradient: pinkGradient, 
               ),
             ),
           ),
@@ -144,25 +158,24 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // '식습관 기록'에 맞게 수정된 헤더
   Widget buildHeaderTitle() {
     return Column(
       children: [
         Text(
-          '오늘의 식습관을 기록해 주세요 🍽️', // 🌟 수정
+          '오늘의 식습관을 기록해 주세요 🍽️', 
           style: TextStyle(
-            fontSize: 22, // text-2xl
-            fontWeight: FontWeight.w600, // font-semibold
+            fontSize: 22, 
+            fontWeight: FontWeight.w600, 
             color: AuraColors.gray800,
           ),
         ),
-        const SizedBox(height: 8), // mb-2
+        const SizedBox(height: 8), 
         Text(
-          '섭취한 음식은 감정 예보에 영향을 줘요.', // 🌟 수정
+          '섭취한 음식은 감정 예보에 영향을 줘요.', 
           style: TextStyle(
-            fontSize: 14, // text-sm
+            fontSize: 14, 
             color: AuraColors.gray600,
-            height: 1.5, // leading-relaxed
+            height: 1.5, 
           ),
           textAlign: TextAlign.center,
         ),
@@ -170,18 +183,17 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // 식습관 선택 카드 (재사용 위젯)
   Widget buildDietCard(
-    String dietKey, // 'salty', 'caffeine' 등
+    String dietKey, 
     String title,
     String subtitle,
     LinearGradient gradient,
   ) {
     return Container(
-      padding: const EdgeInsets.all(24), // p-6
+      padding: const EdgeInsets.all(24), 
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.8), // bg-white/80
-        borderRadius: BorderRadius.circular(16), // rounded-2xl
+        color: Colors.white.withOpacity(0.8), 
+        borderRadius: BorderRadius.circular(16), 
         border: Border.all(color: AuraColors.lightPink.withOpacity(0.3)),
         boxShadow: [
           BoxShadow(
@@ -191,14 +203,13 @@ class DietRecordScreenState extends State<DietRecordScreen> {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // 텍스트 좌측 정렬
+        crossAxisAlignment: CrossAxisAlignment.start, 
         children: [
-          // 카드 헤더 (제목 + 부제목)
           Text(
             title,
             style: const TextStyle(
-              fontSize: 18, // text-lg
-              fontWeight: FontWeight.w500, // font-medium
+              fontSize: 18, 
+              fontWeight: FontWeight.w500, 
               color: AuraColors.gray800,
             ),
           ),
@@ -209,9 +220,8 @@ class DietRecordScreenState extends State<DietRecordScreen> {
               color: AuraColors.gray600,
             ),
           ),
-          const SizedBox(height: 16), // mb-4
+          const SizedBox(height: 16), 
 
-          // 3단계 선택 버튼 (가로 배치)
           Row(
             children: [
               buildChoiceButton(dietKey, 0, '안 먹음'),
@@ -226,27 +236,22 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // '안 먹음', '보통', '많이' 선택 버튼 (재사용 위젯)
   Widget buildChoiceButton(String dietKey, int value, String text) {
-    // 현재 선택된 값과 이 버튼의 값이 일치하는지 확인
     bool isSelected = dietSelections[dietKey] == value;
 
-    // Row의 자식이므로 Expanded로 1/3씩 공간 차지
     return Expanded(
       child: GestureDetector(
         onTap: () {
           setState(() {
-            // 버튼을 누르면 해당 항목의 상태 값을 이 버튼의 value로 변경
             dietSelections[dietKey] = value;
           });
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12), // py-3
+          padding: const EdgeInsets.symmetric(vertical: 12), 
           decoration: BoxDecoration(
-            // 선택되면 핑크 그라데이션, 아니면 회색
             gradient: isSelected ? pinkGradient : null,
             color: isSelected ? null : AuraColors.gray100,
-            borderRadius: BorderRadius.circular(12), // rounded-xl
+            borderRadius: BorderRadius.circular(12), 
           ),
           child: Text(
             text,
@@ -261,49 +266,7 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // '다음으로' 버튼
-  Widget buildFooter() {
-    return BottomAppBar(
-      color: Colors.transparent, // 배경을 투명하게
-      elevation: 0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: pinkGradient,
-            borderRadius: BorderRadius.circular(16), // rounded-2xl
-            boxShadow: [
-              BoxShadow(
-                color: AuraColors.primaryPink.withOpacity(0.3),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: ElevatedButton(
-            onPressed: () {
-              // 다음 페이지 (운동 기록)로 이동하는 로직
-              // 예: Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseRecordScreen()));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent,
-              padding: const EdgeInsets.symmetric(vertical: 16), // py-4
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-            child: const Text(
-              '다음으로 →',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600, // font-semibold
-                fontSize: 18, // text-lg
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // 🌟 4. [삭제] 
+  // 이 파일의 맨 아래에 있던 
+  // Widget buildFooter() { ... } 메서드 전체가 삭제되었습니다.
 }
