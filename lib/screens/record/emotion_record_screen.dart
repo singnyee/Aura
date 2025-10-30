@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../utils/aura_colors.dart'; 
+import '../../utils/aura_colors.dart';
 import '../../widgets/aura_next_button.dart';
 import 'symptom_record_screen.dart';
 
@@ -13,7 +13,7 @@ class EmotionRecordScreen extends StatefulWidget {
 class EmotionRecordScreenState extends State<EmotionRecordScreen> {
   // HTML의 JS 로직을 Flutter 상태로 관리
   String selectedEmotion = ""; // 감정 (단일 선택)
-  Set<String> selectedSymptoms = {}; // 신체 증상 (다중 선택)
+  // Set<String> selectedSymptoms = {}; // [삭제됨]
   String userTypedText = ""; // 사용자가 입력 중인 텍스트
 
   // 텍스트필드 컨트롤러
@@ -36,30 +36,7 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
     super.dispose();
   }
 
-  // HTML의 'symptom-btn' JS 로직을 Flutter 함수로 구현
-  void handleSymptomTap(String symptom) {
-    setState(() {
-      if (symptom == "없음") {
-        // '없음'을 탭한 경우
-        if (selectedSymptoms.contains("없음")) {
-          selectedSymptoms.clear(); // '없음' 선택 해제
-        } else {
-          selectedSymptoms.clear(); // 다른 모든 선택 해제
-          selectedSymptoms.add("없음"); // '없음'만 선택
-        }
-      } else {
-        // 다른 증상을 탭한 경우
-        selectedSymptoms.remove("없음"); // '없음' 선택 해제
-        
-        // 증상 토글 (추가/제거)
-        if (selectedSymptoms.contains(symptom)) {
-          selectedSymptoms.remove(symptom);
-        } else {
-          selectedSymptoms.add(symptom);
-        }
-      }
-    });
-  }
+  // [삭제됨] handleSymptomTap 함수
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +82,14 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
           children: [
             const SizedBox(height: 48), // pt-12
             buildProgressBar(), // Step 4 of 5
-            const SizedBox(height: 24), 
-            buildHeaderTitle(), 
-            const SizedBox(height: 24), 
+            const SizedBox(height: 24),
+            buildHeaderTitle(),
+            const SizedBox(height: 24),
             buildEmotionSection(), // 1. 감정 선택
-            const SizedBox(height: 32), 
-            buildSymptomSection(), // 2. 신체 증상 선택
-            const SizedBox(height: 32), 
-            buildChatSection(), // 3. 챗봇형 텍스트 입력
+            // const SizedBox(height: 32), // [삭제됨]
+            // buildSymptomSection(), // [삭제됨]
+            const SizedBox(height: 32),
+            buildChatSection(), // 3. 챗봇형 텍스트 입력 (번호 수정은 안 함)
             const SizedBox(height: 120), // 하단 여백 (AuraNextButton 위로 스크롤되도록)
           ],
         ),
@@ -137,7 +114,7 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
           height: 8, // h-2
           decoration: BoxDecoration(
             color: AuraColors.gray200,
-            borderRadius: BorderRadius.circular(99), 
+            borderRadius: BorderRadius.circular(99),
           ),
           child: FractionallySizedBox(
             widthFactor: 0.8, // 🌟 80%
@@ -166,13 +143,13 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
             color: AuraColors.gray800,
           ),
         ),
-        const SizedBox(height: 12), 
+        const SizedBox(height: 12),
         Text(
           'AI가 감정 변화를 분석해 마음 건강 리포트를 만들어드릴게요.', // 🌟 수정
           style: TextStyle(
-            fontSize: 14, 
+            fontSize: 14,
             color: AuraColors.gray600,
-            height: 1.5, 
+            height: 1.5,
           ),
         ),
       ],
@@ -203,29 +180,8 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
     );
   }
 
-  // 2. 신체 증상 선택 섹션
-  Widget buildSymptomSection() {
-    return buildQuestionCard(
-      title: '오늘 느낀 신체적 증상이 있나요?',
-      // 🌟 1열 리스트 (Column)
-      child: Column(
-        children: [
-          buildSymptomButton('🤲', '손발이 떨려요', '떨림'),
-          const SizedBox(height: 12), // space-y-3
-          buildSymptomButton('🤕', '머리가 아파요', '두통'),
-          const SizedBox(height: 12),
-          buildSymptomButton('💧', '식은땀이 나요', '식은땀'),
-          const SizedBox(height: 12),
-          buildSymptomButton('💓', '심장이 두근거려요', '심장두근'),
-          const SizedBox(height: 12),
-          buildSymptomButton('😴', '피곤해요', '피곤'),
-          const SizedBox(height: 12),
-          buildSymptomButton('🚫', '특별한 증상은 없어요', '없음'),
-        ],
-      ),
-    );
-  }
-  
+  // [삭제됨] buildSymptomSection 함수
+
   // 3. 챗봇형 텍스트 입력 섹션
   Widget buildChatSection() {
     return buildQuestionCard(
@@ -251,8 +207,8 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
                 child: const Text(
                   '💬 오늘 하루, 어떤 일 때문에\n그런 감정을 느꼈나요?',
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 14, 
+                    color: Colors.white,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -286,7 +242,7 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
                     child: Text(
                       userTypedText, // 🌟 컨트롤러와 연결된 상태 변수
                       style: const TextStyle(
-                        color: AuraColors.gray800, 
+                        color: AuraColors.gray800,
                         fontSize: 14,
                       ),
                     ),
@@ -388,9 +344,9 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
             Text(emoji, style: const TextStyle(fontSize: 16)),
             const SizedBox(width: 8), // mr-2
             Text(
-              text, 
+              text,
               style: const TextStyle(
-                fontSize: 14, 
+                fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: AuraColors.gray800,
               ),
@@ -401,41 +357,5 @@ class EmotionRecordScreenState extends State<EmotionRecordScreen> {
     );
   }
 
-  // 신체 증상 선택 버튼 (다중 선택)
-  Widget buildSymptomButton(String emoji, String text, String key) {
-    bool isSelected = selectedSymptoms.contains(key);
-
-    return GestureDetector(
-      onTap: () {
-        handleSymptomTap(key); // 🌟 복잡한 로직 함수 호출
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        decoration: BoxDecoration(
-          // 🌟 선택/비선택 스타일
-          color: isSelected ? AuraColors.pastelPurple : Colors.transparent,
-          border: Border.all(
-            color: isSelected ? AuraColors.softPurple : AuraColors.gray200,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(12), // rounded-xl
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start, // w-full flex items-center
-          children: [
-            Text(emoji, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 12), // mr-3
-            Text(
-              text, 
-              style: const TextStyle(
-                fontSize: 14, 
-                fontWeight: FontWeight.w500,
-                color: AuraColors.gray800,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // [삭제됨] buildSymptomButton 함수
 }
