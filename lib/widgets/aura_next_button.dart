@@ -40,7 +40,7 @@ class AuraNextButton extends StatelessWidget {
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
               // 이 패딩이 버튼의 실제 높이를 결정합니다. (상: 24, 하: 24)
-              padding: const EdgeInsets.symmetric(vertical: 24),
+              padding: const EdgeInsets.symmetric(vertical: 18),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),

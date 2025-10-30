@@ -4,7 +4,7 @@ import '../../utils/aura_colors.dart';
 import '../record/sleep_record_screen.dart';
 import '../report/ai_report_screen.dart';
 // 🌟 1. [추가] 달력 화면 import
-import '../calendar/calendar_screen.dart'; 
+import '../calendar/calendar_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  int selectedIndex = 0; 
+  int selectedIndex = 0;
 
   final List<Widget> screens = [
     const HomeContent(), // 0: 홈
@@ -29,7 +29,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: screens[selectedIndex], 
+      body: screens[selectedIndex],
       bottomNavigationBar: buildBottomNavBar(selectedIndex, (index) {
         // 🌟 3. [수정] '기록' 탭 (index 1) 로직 변경
         if (index == 1) {
@@ -42,7 +42,7 @@ class HomeScreenState extends State<HomeScreen> {
         } else {
           // Switch tabs for other indices
           setState(() {
-            selectedIndex = index; 
+            selectedIndex = index;
           });
         }
       }),
@@ -50,11 +50,12 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildBottomNavBar(int currentIndex, Function(int) onTap) {
-     return BottomAppBar(
+    return BottomAppBar(
       color: Colors.white,
       elevation: 4,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        // 🌟 [수정] Overfolw 해결을 위해 세로 패딩을 8.0에서 4.0으로 줄입니다.
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -90,7 +91,7 @@ class HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-} 
+}
 
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
@@ -110,21 +111,21 @@ class HomeContent extends StatelessWidget {
               const SizedBox(height: 24),
               buildAiRoutine(),
               const SizedBox(height: 24),
-              buildTodayRecord(context), 
+              buildTodayRecord(context),
               const SizedBox(height: 24),
               // 🌟 4. [수정] buildBodyRhythm에 context 전달
-              buildBodyRhythm(context), 
+              buildBodyRhythm(context),
             ],
           ),
         ),
         // Adjusted SizedBox for bottom padding to prevent overlap with BottomNavBar
-        const SizedBox(height: 80), 
+        const SizedBox(height: 80),
       ],
     );
   }
 
   // --- build methods moved from original HomeScreen ---
-  Widget buildHeader() { 
+  Widget buildHeader() {
     return Padding(
       padding: const EdgeInsets.only(left: 24, right: 24, top: 48, bottom: 24),
       child: Column(
@@ -151,7 +152,8 @@ class HomeContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildEmotionForecast() { 
+
+  Widget buildEmotionForecast() {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -184,7 +186,6 @@ class HomeContent extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-
           Row(
             children: [
               buildForecastCard('☀️', '기분', '좋음'),
@@ -195,7 +196,6 @@ class HomeContent extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -214,7 +214,8 @@ class HomeContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildForecastCard(String icon, String title, String value) { 
+
+  Widget buildForecastCard(String icon, String title, String value) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(12),
@@ -246,8 +247,9 @@ class HomeContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildAiRoutine() { 
-     return Column(
+
+  Widget buildAiRoutine() {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
@@ -266,7 +268,6 @@ class HomeContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-
         buildRoutineItem('☕', '따뜻한 차 마시기', isCompleted: false),
         const SizedBox(height: 12),
         buildRoutineItem('🧘', '10분 스트레칭', isCompleted: true),
@@ -275,8 +276,9 @@ class HomeContent extends StatelessWidget {
       ],
     );
   }
-  Widget buildRoutineItem(String icon, String title, {bool isCompleted = false}) { 
-     return Container(
+
+  Widget buildRoutineItem(String icon, String title, {bool isCompleted = false}) {
+    return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -304,8 +306,9 @@ class HomeContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildPinkButton() { 
-     return Container(
+
+  Widget buildPinkButton() {
+    return Container(
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [AuraColors.lightPink, AuraColors.primaryPink],
@@ -332,7 +335,8 @@ class HomeContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildGrayButton() { 
+
+  Widget buildGrayButton() {
     // 🌟 [수정] 핑크 버튼과 동일한 구조로 변경
     return Container(
       decoration: BoxDecoration(
@@ -346,7 +350,7 @@ class HomeContent extends StatelessWidget {
           shadowColor: Colors.transparent, // 🌟 버튼 자체는 투명하게
           foregroundColor: AuraColors.gray600, // 텍스트 색상은 유지
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 8), 
+          padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 8),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 핑크 버튼과 동일한 설정
         ),
         child: const Text(
@@ -356,7 +360,8 @@ class HomeContent extends StatelessWidget {
       ),
     );
   }
-  Widget buildTodayRecord(BuildContext context) { 
+
+  Widget buildTodayRecord(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -369,7 +374,6 @@ class HomeContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -387,7 +391,6 @@ class HomeContent extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-
         ElevatedButton(
           onPressed: () {
             // Start recording flow
@@ -417,7 +420,8 @@ class HomeContent extends StatelessWidget {
       ],
     );
   }
-  Widget buildRecordChip(String icon, String title, String value) { 
+
+  Widget buildRecordChip(String icon, String title, String value) {
     return Container(
       width: 80,
       padding: const EdgeInsets.all(12),
@@ -452,7 +456,7 @@ class HomeContent extends StatelessWidget {
 
   // 🌟 5. [수정] buildBodyRhythm now requires context
   Widget buildBodyRhythm(BuildContext context) {
-     return Container(
+    return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AuraColors.gray50,
@@ -470,7 +474,6 @@ class HomeContent extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
