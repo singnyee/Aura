@@ -11,12 +11,14 @@ class DietRecordScreen extends StatefulWidget {
 }
 
 class DietRecordScreenState extends State<DietRecordScreen> {
+  // 💧 [수정] 'water' 항목 추가
   Map<String, int> dietData = {
     'salty': 0,
     'caffeine': 0,
     'alcohol': 0,
     'sugar': 0,
     'fat': 0,
+    'water': 0, // 💧 추가된 항목
     'fruit': 0,
   };
 
@@ -91,6 +93,13 @@ class DietRecordScreenState extends State<DietRecordScreen> {
               '지방 🥓',
               '튀김, 기름진 고기 등 포화/트랜스 지방을 드셨나요?',
               buildCounterInput('fat', '회'),
+            ),
+            const SizedBox(height: 24),
+            // 💧 [추가] 물 섭취 카드
+            buildDietCard(
+              '물 💧',
+              '물을 몇 잔 드셨나요?',
+              buildCounterInput('water', '잔'),
             ),
             const SizedBox(height: 24),
             buildDietCard(
@@ -218,11 +227,13 @@ class DietRecordScreenState extends State<DietRecordScreen> {
       children: [
         buildCounterButton(
           Icons.remove,
-          count > 0 ? () {
-            setState(() {
-              dietData[dietKey] = (count - 1).clamp(0, 99);
-            });
-          } : null,
+          count > 0
+              ? () {
+                  setState(() {
+                    dietData[dietKey] = (count - 1).clamp(0, 99);
+                  });
+                }
+              : null,
         ),
         SizedBox(
           width: 100,

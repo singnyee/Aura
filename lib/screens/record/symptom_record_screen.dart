@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../utils/aura_colors.dart'; 
+import '../../utils/aura_colors.dart';
 import '../../widgets/aura_next_button.dart';
 
 class SymptomRecordScreen extends StatefulWidget {
@@ -38,14 +38,14 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
     setState(() {
       if (symptom == "없음") {
         if (selectedSymptoms.contains("없음")) {
-          selectedSymptoms.clear(); 
+          selectedSymptoms.clear();
         } else {
-          selectedSymptoms.clear(); 
-          selectedSymptoms.add("없음"); 
+          selectedSymptoms.clear();
+          selectedSymptoms.add("없음");
         }
       } else {
-        selectedSymptoms.remove("없음"); 
-        
+        selectedSymptoms.remove("없음");
+
         if (selectedSymptoms.contains(symptom)) {
           selectedSymptoms.remove(symptom);
         } else {
@@ -73,16 +73,16 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
           Navigator.popUntil(context, (route) => route.isFirst); // 가장 첫 화면(홈)으로 이동
         },
         // 🌟 버튼 텍스트 변경 옵션 추가 (AuraNextButton 위젯 수정 필요)
-        // buttonText: '완료하기 🎉', 
+        // buttonText: '완료하기 🎉',
       ),
     );
   }
 
   Widget buildMainContent() {
     return SafeArea(
-      bottom: false, 
+      bottom: false,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 12), 
+        margin: const EdgeInsets.symmetric(horizontal: 12),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -93,13 +93,13 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           children: [
-            const SizedBox(height: 48), 
+            const SizedBox(height: 48),
             buildProgressBar(), // Step 5 of 5
-            const SizedBox(height: 24), 
-            buildHeaderTitle(), 
-            const SizedBox(height: 24), 
+            const SizedBox(height: 24),
+            buildHeaderTitle(),
+            const SizedBox(height: 24),
             buildSymptomSelectionSection(), // 1. 증상 선택
-            const SizedBox(height: 32), 
+            const SizedBox(height: 32),
             buildConditionChatSection(), // 2. 컨디션 입력 (챗봇형)
             const SizedBox(height: 120), // 하단 여백
           ],
@@ -120,12 +120,12 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
             color: AuraColors.gray600,
           ),
         ),
-        const SizedBox(height: 12), 
+        const SizedBox(height: 12),
         Container(
-          height: 8, 
+          height: 8,
           decoration: BoxDecoration(
             color: AuraColors.gray200,
-            borderRadius: BorderRadius.circular(99), 
+            borderRadius: BorderRadius.circular(99),
           ),
           child: FractionallySizedBox(
             widthFactor: 1.0, // 🌟 100%
@@ -133,7 +133,7 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(99),
-                gradient: softGradient, 
+                gradient: softGradient,
               ),
             ),
           ),
@@ -149,18 +149,18 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
         Text(
           '오늘의 컨디션은 어떠셨나요? 🤔', // 🌟 수정
           style: TextStyle(
-            fontSize: 20, 
-            fontWeight: FontWeight.w600, 
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
             color: AuraColors.gray800,
           ),
         ),
-        const SizedBox(height: 12), 
+        const SizedBox(height: 12),
         Text(
           '신체 증상과 전반적인 컨디션을 기록해주세요.', // 🌟 수정
           style: TextStyle(
-            fontSize: 14, 
+            fontSize: 14,
             color: AuraColors.gray600,
-            height: 1.5, 
+            height: 1.5,
           ),
         ),
       ],
@@ -180,6 +180,21 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
           const SizedBox(height: 12),
           buildSymptomButton('🖐️', '손발이 저릿저릿해요', '손발저림'),
           const SizedBox(height: 12),
+          // 🌟 [추가] 이미지 속 항목 1
+          buildSymptomButton('🟡', '손발이 떨려요', '떨림'),
+          const SizedBox(height: 12),
+          // 🌟 [추가] 이미지 속 항목 2
+          buildSymptomButton('🤢', '속/위가 아파요', '복통'),
+          const SizedBox(height: 12),
+          // 🌟 [추가] 이미지 속 항목 3
+          buildSymptomButton('💧', '식은땀이 나요', '식은땀'),
+          const SizedBox(height: 12),
+          // 🌟 [추가] 이미지 속 항목 4
+          buildSymptomButton('💓', '심장이 두근거려요', '두근거림'),
+          const SizedBox(height: 12),
+          // 🌟 [추가] 이미지 속 항목 5
+          buildSymptomButton('😵', '피곤해요', '피곤'),
+          const SizedBox(height: 12),
           buildSymptomButton('🚫', '특별한 증상은 없어요', '없음'),
         ],
       ),
@@ -190,7 +205,7 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
   Widget buildConditionChatSection() {
     // 감정 기록 화면의 buildChatSection과 거의 동일
     return buildQuestionCard(
-      title: '', 
+      title: '',
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
@@ -206,14 +221,14 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),
                     bottomRight: Radius.circular(16),
-                    bottomLeft: Radius.circular(4), 
+                    bottomLeft: Radius.circular(4),
                   ),
                 ),
                 child: const Text(
                   '💬 전반적인 컨디션은 어떠셨나요?\n자유롭게 이야기해주세요.',
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 14, 
+                    color: Colors.white,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -233,21 +248,21 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: AuraColors.gray100, 
+                      color: AuraColors.gray100,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(16),
                         topRight: Radius.circular(16),
                         bottomLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(4), 
+                        bottomRight: Radius.circular(4),
                       ),
                     ),
                     constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.6, 
+                      maxWidth: MediaQuery.of(context).size.width * 0.6,
                     ),
                     child: Text(
-                      userTypedCondition, 
+                      userTypedCondition,
                       style: const TextStyle(
-                        color: AuraColors.gray800, 
+                        color: AuraColors.gray800,
                         fontSize: 14,
                       ),
                     ),
@@ -260,7 +275,7 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
           // 텍스트 입력 필드
           TextField(
             controller: conditionTextController,
-            maxLines: 3, 
+            maxLines: 3,
             decoration: InputDecoration(
               hintText: '예: 몸이 좀 무겁고 피곤했어요.',
               filled: true,
@@ -288,10 +303,10 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
 
   Widget buildQuestionCard({required String title, required Widget child, EdgeInsets? padding}) {
     return Container(
-      padding: padding ?? const EdgeInsets.all(24), 
+      padding: padding ?? const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16), 
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AuraColors.gray100),
         boxShadow: [
           BoxShadow(
@@ -308,13 +323,13 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 18, 
-                fontWeight: FontWeight.w500, 
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
                 color: AuraColors.gray800,
               ),
             ),
           if (title.isNotEmpty)
-            const SizedBox(height: 16), 
+            const SizedBox(height: 16),
           child,
         ],
       ),
@@ -326,7 +341,7 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
 
     return GestureDetector(
       onTap: () {
-        handleSymptomTap(key); 
+        handleSymptomTap(key);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -336,17 +351,17 @@ class SymptomRecordScreenState extends State<SymptomRecordScreen> {
             color: isSelected ? AuraColors.softPurple : AuraColors.gray200,
             width: 2,
           ),
-          borderRadius: BorderRadius.circular(12), 
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start, 
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(emoji, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 12), 
+            const SizedBox(width: 12),
             Text(
-              text, 
+              text,
               style: const TextStyle(
-                fontSize: 14, 
+                fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: AuraColors.gray800,
               ),

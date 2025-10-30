@@ -18,7 +18,11 @@ class AuraNextButton extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+        // 🌟 [수정]
+        // 기존: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0)
+        // 버튼 자체의 패딩(vertical: 24)과 중복되어 높이 오버플로우를 일으키므로
+        // 여기서는 좌우 패딩만 남기고 세로 패딩은 제거합니다.
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Container(
           decoration: BoxDecoration(
             gradient: pinkGradient, // 공통 그라데이션 사용
@@ -36,14 +40,13 @@ class AuraNextButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
+              // 이 패딩이 버튼의 실제 높이를 결정합니다. (상: 24, 하: 24)
               padding: const EdgeInsets.symmetric(vertical: 24),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              // 🌟 [해결책] 
-              // 버튼의 최소 너비를 'double.infinity' (무한대)로 설정하여
+              // 최소 너비를 'double.infinity'로 설정하여
               // 부모 위젯(Container)의 최대 너비를 꽉 채우게 합니다.
-              // 높이는 0으로 설정하고, padding(py-4)이 높이를 결정하도록 합니다.
               minimumSize: const Size(double.infinity, 0),
             ),
             child: const Text(
