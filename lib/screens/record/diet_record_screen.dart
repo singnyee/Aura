@@ -11,14 +11,13 @@ class DietRecordScreen extends StatefulWidget {
 }
 
 class DietRecordScreenState extends State<DietRecordScreen> {
-  // 🌟 [수정] 모든 항목이 수량 카운트 방식으로 통일되었습니다.
   Map<String, int> dietData = {
-    'salty': 0,    // 0, 1, 2... (접시)
-    'caffeine': 0, // 0, 1, 2... (잔)
-    'alcohol': 0,  // 0, 1, 2... (잔)
-    'sugar': 0,    // 0, 1, 2... (회)
-    'fat': 0,      // 0, 1, 2... (회)
-    'fruit': 0,    // 0, 1, 2... (개)
+    'salty': 0,
+    'caffeine': 0,
+    'alcohol': 0,
+    'sugar': 0,
+    'fat': 0,
+    'fruit': 0,
   };
 
   @override
@@ -27,7 +26,7 @@ class DietRecordScreenState extends State<DietRecordScreen> {
       backgroundColor: Colors.transparent,
       body: Container(
         decoration: const BoxDecoration(
-          gradient: pastelBodyGradient, // EmotionScreen과 동일한 배경
+          gradient: pastelBodyGradient,
         ),
         child: buildMainContent(),
       ),
@@ -82,24 +81,22 @@ class DietRecordScreenState extends State<DietRecordScreen> {
               buildCounterInput('alcohol', '잔'),
             ),
             const SizedBox(height: 24),
-            
-            // 🌟 [수정] 5단계 버튼 UI에서 수량 카운터 UI로 변경
             buildDietCard(
               '단순당/정제 탄수화물 🍰',
               '디저트, 빵, 과자, 음료수 등을 드셨나요?',
-              buildCounterInput('sugar', '회'), // 🌟 수량 카운터 UI
+              buildCounterInput('sugar', '회'),
             ),
             const SizedBox(height: 24),
             buildDietCard(
               '지방 🥓',
               '튀김, 기름진 고기 등 포화/트랜스 지방을 드셨나요?',
-              buildCounterInput('fat', '접시'), // 🌟 수량 카운터 UI
+              buildCounterInput('fat', '회'),
             ),
             const SizedBox(height: 24),
             buildDietCard(
               '과일 🍓',
               '과일 섭취량을 알려주세요.',
-              buildCounterInput('fruit', '개'), // 🌟 수량 카운터 UI
+              buildCounterInput('fruit', '개'),
             ),
             const SizedBox(height: 120),
           ],
@@ -108,7 +105,6 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // EmotionScreen과 동일한 스타일 (왼쪽 정렬, softGradient)
   Widget buildProgressBar() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +139,6 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // EmotionScreen과 동일한 스타일 (왼쪽 정렬, 폰트 스타일)
   Widget buildHeaderTitle() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,18 +164,18 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // 카드의 구조를 재사용하고, 입력 UI(child)를 파라미터로 받음
   Widget buildDietCard(
     String title,
     String subtitle,
-    Widget child, // 입력 UI를 직접 받음
+    Widget child,
   ) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AuraColors.gray100),
+        // 🌟 [수정] 테두리 두께 (width) 2.0으로 증가
+        border: Border.all(color: AuraColors.gray200, width: 3.0),
         boxShadow: [
           BoxShadow(
             color: AuraColors.gray50.withOpacity(0.5),
@@ -208,19 +203,12 @@ class DietRecordScreenState extends State<DietRecordScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          child, // 🌟 여기에 수량 카운터가 들어옴
+          child,
         ],
       ),
     );
   }
 
-  // 🌟 [삭제됨] 
-  // 헬퍼 위젯: 5단계 선택 UI (buildScaleInput)
-
-  // 🌟 [삭제됨]
-  // 헬퍼 위젯: 5단계 선택 버튼 (buildScaleButton)
-
-  // 헬퍼 위젯: 수량 카운터 UI
   Widget buildCounterInput(String dietKey, String unit) {
     int count = dietData[dietKey] ?? 0;
 
@@ -228,18 +216,16 @@ class DietRecordScreenState extends State<DietRecordScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // '-' 빼기 버튼
         buildCounterButton(
           Icons.remove,
-          count > 0 ? () { // 0보다 클 때만 활성화
+          count > 0 ? () {
             setState(() {
               dietData[dietKey] = (count - 1).clamp(0, 99);
             });
-          } : null, // null이면 비활성화
+          } : null,
         ),
-        // 수량 텍스트
         SizedBox(
-          width: 100, // 텍스트 영역 고정 폭
+          width: 100,
           child: Text(
             '$count $unit',
             textAlign: TextAlign.center,
@@ -250,10 +236,9 @@ class DietRecordScreenState extends State<DietRecordScreen> {
             ),
           ),
         ),
-        // '+' 더하기 버튼
         buildCounterButton(
           Icons.add,
-          () { // 항상 활성화 (99에서 멈춤)
+          () {
             setState(() {
               dietData[dietKey] = (count + 1).clamp(0, 99);
             });
@@ -263,23 +248,22 @@ class DietRecordScreenState extends State<DietRecordScreen> {
     );
   }
 
-  // 헬퍼 위젯: 수량 카운터 버튼
   Widget buildCounterButton(IconData icon, VoidCallback? onPressed) {
     bool isEnabled = onPressed != null;
 
     return InkWell(
       onTap: onPressed,
-      borderRadius: BorderRadius.circular(99), // 물결 효과를 원형으로
+      borderRadius: BorderRadius.circular(99),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isEnabled ? AuraColors.gray100 : AuraColors.gray50,
-          shape: BoxShape.circle, // 원형 버튼
+          color: isEnabled ? AuraColors.gray200 : AuraColors.gray100,
+          shape: BoxShape.circle,
         ),
         child: Icon(
           icon,
           size: 20,
-          color: isEnabled ? AuraColors.gray700 : AuraColors.gray200,
+          color: isEnabled ? AuraColors.gray700 : AuraColors.gray400,
         ),
       ),
     );

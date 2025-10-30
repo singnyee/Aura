@@ -379,7 +379,7 @@ class AiReportScreen extends StatelessWidget {
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('다음 주도 기록 시작하기', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
+                    Text('이전 기록 모아 보기', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
                     SizedBox(width: 8),
                     Icon(FontAwesomeIcons.arrowRight, size: 14, color: Colors.white), // fa-arrow-right
                   ],
